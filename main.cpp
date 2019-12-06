@@ -15,6 +15,7 @@ How To Run Program:
 #include <cstdlib>
 #include <cmath>
 #include <chrono>
+#include <map>
 #include "pagetable.h"
 
 using namespace std;
@@ -97,7 +98,10 @@ int main(int argc, char **argv) {
     ifstream small_ref_file;
     small_ref_file.open("C:\\Users\\User\\CLionProjects\\Assignment5\\small_refs.txt");
     char line[LINE_SIZE];
-    int logical_address_int, last_digit, current_entry_index, line_count, fault_count, temp_fault;
+    int logical_address_int, last_digit, current_entry_index, line_count, fault_count, temp_fault, current_frame, frame_num;
+    map <int, int> test_map;
+    map <int, int>::iterator it;
+
     bool temp_dirty;
     PageTable page_table;
 
@@ -106,10 +110,7 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    while (small_ref_file.eof() == 0) {
-        
-        small_ref_file >> line;
-
+    while (small_ref_file >> line) {
         logical_address_int = stoi(line);
         last_digit = logical_address_int % 10;
         page_number = logical_address_int / page_size;
@@ -124,25 +125,42 @@ int main(int argc, char **argv) {
         }
 
         //see if value exists in current page table
-        if (page_table.is_entry_in_table(entry.frame_num)) {
-            current_entry_index = page_table.index_of_entry(entry);
-            page_table.pages[current_entry_index].dirty = temp_dirty;
-            temp_fault = 0;
+//        if (page_table.is_entry_in_table(entry.frame_num)) {
+//            current_entry_index = page_table.index_of_entry(entry);
+//            page_table.pages[current_entry_index].dirty = temp_dirty;
+//            temp_fault = 0;
+//
+//        } else {
+//            //generate page fault and place in page...
+//            entry.frame_num = line_count;
+//            entry.dirty = temp_dirty;
+//            entry.valid = true;
+//            temp_fault = 1;
+//            fault_count++;
+//            page_table.pages.push_back(entry);
+//        }
 
-        } else {
-            //generate page fault and place in page...
-            entry.frame_num = line_count;
-            entry.dirty = temp_dirty;
-            entry.valid = true;
-            temp_fault = 1;
+        current_frame = frame_num;
 
+        temp_fault = 0;
+        it = test_map.find(page_number);
+
+        if (it == test_map.end())
+        {
+            test_map.insert(std::pair<int, int>(page_number, frame_num));
+            frame_num++;
             fault_count++;
+        }
+        else
+        {
+            temp_fault = 1;
+            current_frame = it->second;
         }
 
         line_count++;
 
         // output
-        cout << "Logical address: " << logical_address_int << "\tPage Number: " << page_number << "\tframe number = " << line_count;
+        cout << "Logical address: " << logical_address_int << "\tPage Number: " << page_number << "\tframe number = " << current_frame;
         cout << "\tis page fault? " << temp_fault << endl;
     }
 
