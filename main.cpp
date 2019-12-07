@@ -144,26 +144,6 @@ int main(int argc, char **argv) {
             page_table.pages.push_front(entry);
             frame_num++;
         }
-
-//        current_frame = frame_num;
-
-//        temp_fault = 1;
-//        it = test_map.find(page_number);
-//
-//        if (it == test_map.end())
-//        {
-//            //it is not present
-//            test_map.insert(std::pair<int, int>(page_number, frame_num));
-//            frame_num++;
-////            fault_count++;
-//        }
-//        else
-//        {
-//            //it is present
-//            temp_fault = 0;
-//            current_frame = it->second;
-//        }
-
 //        line_count++;
 
         // output
@@ -192,70 +172,6 @@ int main(int argc, char **argv) {
     cout << "****************Simulate Random replacement****************************" << endl;
     // TODO: Add your code to calculate number of page faults using Random replacement algorithm
     // TODO: print the statistics and run-time
-
-
-//    if (!large_ref_file.is_open()) {
-//        cout << "Unable to open file" << endl;
-//        exit(1);
-//    }
-//
-//    while (large_ref_file >> line) {
-//        logical_address_int = stoi(line);
-//        last_digit = logical_address_int % 10;
-//        page_number = logical_address_int / page_size;
-//        current_frame = frame_num;
-//
-//
-//        PageEntry entry;
-//
-//        //set dirty bit
-//        if (last_digit % 2 == 0) {
-//            temp_dirty = false;
-//        } else {
-//            temp_dirty = true;
-//        }
-//
-////        see if value exists in current page table
-//        if (page_table.is_entry_in_table(current_frame)) {
-//            current_entry_index = page_table.index_of_entry(entry);
-//            page_table.pages[current_entry_index].dirty = temp_dirty;
-//            temp_fault = 0;
-//            current_frame = page_table.pages[current_entry_index].frame_num;
-//        } else {
-//            //generate page fault and place in page...
-//            entry.frame_num = frame_num++;
-//            entry.dirty = temp_dirty;
-//            entry.valid = true;
-//            temp_fault = 1;
-//            fault_count++;
-//            page_table.pages.push_front(entry);
-//        }
-
-
-//
-//        temp_fault = 1;
-//        it = test_map.find(page_number);
-//
-//        if (it == test_map.end())
-//        {
-//            //it is not present
-//            test_map.insert(std::pair<int, int>(page_number, frame_num));
-//            frame_num++;
-////            fault_count++;
-//        }
-//        else
-//        {
-//            //it is present
-//            temp_fault = 0;
-//            current_frame = it->second;
-//        }
-
-//        line_count++;
-
-        // output
-//        cout << "Logical address: " << logical_address_int << "\tPage Number: " << page_number << "\tframe number = " << current_frame;
-//        cout << "\tis page fault? " << temp_fault << endl;
-//    }
 
 
     cout << "****************Simulate LRU replacement****************************" << endl;
