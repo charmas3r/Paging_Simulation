@@ -14,16 +14,16 @@
 
 bool PageTable::is_entry_in_table(int val){
     for (PageEntry entry : pages) {
-        if (entry.frame_num == val) {
+        if (entry.page_number == val) {
             return true;
         }
     }
     return false;
 }
 
-int PageTable::index_of_entry(PageEntry entry){
+int PageTable::index_of_entry(int val){
     for (int i = 0; i < pages.size(); ++i) {
-        if(pages[i].frame_num == entry.frame_num) {
+        if(pages[i].frame_num == val) {
             return i;
         }
     }
